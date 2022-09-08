@@ -1,0 +1,111 @@
+.thunder{
+    width: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thunder_header{
+    width: 70%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  
+    margin: 30px;
+    padding: 10px;
+    background-color: blanchedalmond;
+}
+
+.post_container{
+    width: 80%;
+    /* background: radial-gradient(#111 50%, #000 100%); */
+}
+
+.post{
+    display: inline-block;
+    width: 200px;
+    height: 300px;
+    
+    margin: 10px;
+
+    border: 4px solid rgb(63, 167, 127);
+    border-radius: 15px;
+    overflow: hidden;
+
+    /* 틀의 배경을 검은 색으로 하는게 포인트! */
+    background: radial-gradient(#111 50%, #000 100%);
+}
+
+.post_box{
+    /* background: radial-gradient(#111 50%, #000 100%); */
+
+    position: relative;
+    transform: scale(1.0);
+    transition: all 0.3s ease-out;
+    overflow: hidden;
+   
+}
+/* translateY(-20px) 살짝 왼쪽으로 작아짐 */
+.post_box:hover{
+    transform: scale(0.8) ;
+    opacity: 0.3;
+    /* display: none; */
+}
+.post_box img{
+    width:200px;
+    height:200px;
+}
+
+.post_back{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    color:#fff;
+    font-size:18px;
+}
+
+.post_back h3{
+    font-weight: 700;
+    font-size: 32px;
+    margin: 0 0 20px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+.post_back p{
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.post_back button{
+    color: #fff;
+    background:#34aff3 ;
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.post_back button:hover{
+    background: #0e6290;
+}
+
+.post_box:hover .post_back h3{
+    opacity: 1;
+    transform: translateY(0px);
+}
+.post_box:hover .post_back p{
+    opacity: 1;
+    transform: translateY(0px);
+}
+.post_box:hover .post_back button{
+    opacity: 1;
+    transform: translateY(0px);
+
+}
