@@ -10,7 +10,7 @@ const ThunderMap = () => {
     return (
         <>
             
-
+        <h1>ThunderMap 임</h1>
 
 
         </>

@@ -1,9 +1,13 @@
 .thunder{
-    width: 100vh;
-
+/* 현 페이지 전체넓이 */
+    width: 1500px;
+/* 정중앙으로 */
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    /*? index.css랑*/
+    /* background: #dbcdaf; */
 }
 
 .thunder_header{
@@ -16,16 +20,23 @@
   
     margin: 30px;
     padding: 10px;
-    background-color: blanchedalmond;
+    background-color: rgb(115, 131, 207);
 }
 
 .post_container{
-    width: 80%;
+   /* 한줄에 4개씩 출력 */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: auto;
+
     /* background: radial-gradient(#111 50%, #000 100%); */
+    text-align: center;
+   
+    
 }
 
 .post{
-    display: inline-block;
+    /* display: inline-block; */
     width: 200px;
     height: 300px;
     
@@ -37,11 +48,11 @@
 
     /* 틀의 배경을 검은 색으로 하는게 포인트! */
     background: radial-gradient(#111 50%, #000 100%);
+    color: whitesmoke;
 }
 
 .post_box{
     /* background: radial-gradient(#111 50%, #000 100%); */
-
     position: relative;
     transform: scale(1.0);
     transition: all 0.3s ease-out;
