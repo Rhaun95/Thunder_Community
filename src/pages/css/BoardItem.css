@@ -1,0 +1,40 @@
+.boardItem{
+  /* 자식들 양 끝으로 */
+  display: flex;
+  justify-content: space-between;
+   /* 자식들 vertical 중간으로*/
+  align-items: center;
+
+  width: 93%;
+  
+  border-bottom: 2px solid rgb(115, 115, 163);
+  border-radius: 5px;
+  padding: 20px 10px 10px 10px;
+  margin: 10px 0px 10px 10px;
+}
+.boardItem_content{
+  display: flex;
+
+  width: 300px;
+  height: 30px;
+  
+  font-size: 18px;
+}
+
+.boardItem_btn{
+  width: 130px;
+  height: 50px;
+
+  display: inline-block;
+  padding: 10px 25px;
+
+  color: #fff;
+  background:#a4b9ff ;
+
+  border: 2px solid rgb(115, 115, 163);
+  border-radius: 5px;
+}
+
+.boardItem_btn:hover{
+  background: #587bec;
+}

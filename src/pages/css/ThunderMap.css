@@ -1,0 +1,71 @@
+.container{
+  display: flex;
+  /* justify-content: space-around; */
+}
+
+.board_container{
+  width: 500px;
+  height: 500px;
+
+  margin: 60px;
+  padding: 30px;
+  overflow: auto;
+
+  border-radius: 10px;
+  background: #fffefe;
+
+}
+/*#스크롤바 전체*/
+.board_container::-webkit-scrollbar {
+  width: 13px;
+  
+}
+
+/*#스크롤 막대*/
+.board_container::-webkit-scrollbar-thumb {
+  background-color: #c2ec9b;
+  border: 2px solid #a4b9ff;
+  /* background-color: #c2ec9b;
+  border: 2px solid #99b97a77; */
+  border-radius: 8px;
+  background-clip: padding-box;
+
+}
+
+/*#스크롤 막대 외부*/
+.board_container::-webkit-scrollbar-track {
+  background-color: rgba(181, 181, 223, 0.658);
+  /* background-color: #99b97a77; */
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 5px white;
+  
+}
+
+
+.board_container_title{
+  width: 200px;
+  height: 40px;
+
+  padding: 10px;
+  background: #c4fc8f;
+  border-radius: 6px;
+  border: 1px solid  #b3e781;
+
+  text-align: center;
+  font-size: 30px;
+
+}
+
+.map_container{
+  width: fit-content;
+  margin: 60px;
+}
+
+.map_item{
+  width: 700px;
+  height: 500px;
+  padding: 30px;
+
+  border-radius: 10px;
+  
+}

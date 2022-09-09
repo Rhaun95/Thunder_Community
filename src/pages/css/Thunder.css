@@ -79,6 +79,8 @@
     text-align: center;
     color:#fff;
     font-size:18px;
+
+    cursor: pointer;
 }
 
 .post_back h3{
