@@ -33,6 +33,8 @@
 
   border: 2px solid rgb(115, 115, 163);
   border-radius: 5px;
+
+  cursor: pointer;
 }
 
 .boardItem_btn:hover{

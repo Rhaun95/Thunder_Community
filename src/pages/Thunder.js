@@ -20,6 +20,12 @@ const Thunder = () => {
         navigate("/user/thunderMap");
     }
 
+    function toInsert(e){
+        navigate("/user/thunderInsert");
+    }
+
+    
+
     return (
         <div className="thunder">
             <header className="thunder_header">
@@ -35,6 +41,10 @@ const Thunder = () => {
                     <option value="이벤트(투어)">이벤트(투어)</option>
                 </select>
             </div>
+            <div>
+                <button onClick={toInsert}>번개 등록</button>
+            </div>
+
             <div className="post_container">
                 
                 {postList.map((post)=>(

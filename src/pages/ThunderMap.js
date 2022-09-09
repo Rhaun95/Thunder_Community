@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './css/ThunderMap.css';
 import { useNavigate } from 'react-router-dom';
 
-import { Map, MapMarker,CustomOverlayMap,MarkerClusterer } from "react-kakao-maps-sdk";
+import { Map, MapMarker,CustomOverlayMap,MarkerClusterer, useMap } from "react-kakao-maps-sdk";
 import BoardItem from './components/BoardItem';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -40,7 +40,22 @@ const ThunderMap = () => {
     // function view(id){
     //     navigate('/user/thunder/' + id)
     // }
-
+    const EventMarkerContainer = ({ position, content }) => {
+        const map = useMap()
+        const [isVisible, setIsVisible] = useState(false)
+    
+        return (
+          <MapMarker
+            position={position} // 마커를 표시할 위치
+            // @ts-ignore
+            onClick={(marker) => map.panTo(marker.getPosition())}
+            onMouseOver={() => setIsVisible(true)}
+            onMouseOut={() => setIsVisible(false)}
+          >
+            {isVisible && content.title}
+          </MapMarker>
+        )
+      }
     
     return (
         <>
@@ -59,9 +74,21 @@ const ThunderMap = () => {
 
             <div className="map_container">
             <Map className='map_item'
-                center={{ lat: 33.5563, lng: 126.79581 }}
-                level={8}>
+                center={{ lat: 37.5505579, lng: 126.8874528 }}
+                level={5}>
                 {postList.map((pos)=>(
+                    <>
+                        <EventMarkerContainer
+                            key={`EventMarkerContainer-${pos.position.lat}-${pos.position.lng}`}
+                            position={pos.position}
+                            content={pos}
+                        />
+                    </>
+                ))}
+
+
+
+                {/* {postList.map((pos)=>(
                     <>
                     <MapMarker 
                         position={pos.position}
@@ -71,7 +98,7 @@ const ThunderMap = () => {
                         <div style={{color:"#000"}}>Hello World!</div>
                     </MapMarker>
                     </>
-                ))}
+                ))} */}
                   </Map>
                 {/* <Map className='map_item'
                     center={{ lat: 33.5563, lng: 126.79581 }}
