@@ -1,58 +1,96 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios';
 import './css/ThunderMap.css';
 import { useNavigate } from 'react-router-dom';
 
 import { Map, MapMarker,CustomOverlayMap,MarkerClusterer, useMap } from "react-kakao-maps-sdk";
-import BoardItem from './components/BoardItem';
+import ThunderBoardItem from './components/ThunderBoardItem';
 
 import {useSelector, useDispatch} from 'react-redux';
 
 //Map과(Marker) 계시글 형식
 const ThunderMap = () => {
+    const navigate = useNavigate();
 
+    //임시
     const postList = useSelector((state)=> state.basket.movieList);
     const dispatch = useDispatch();
 
-    const navigate = useNavigate();
 
-    // const clusterPositionsData=[
-    //     {   
-    //         id:1,
-    //         lat:37.5505579,
-    //         lng:126.8874528,
-    //     },{
-    //         id:2,
-    //         lat:37.4813452,
-    //         lng:126.878116,
-    //     }
-    //     ,{
-    //         id:3,
-    //         lat:37.4789439,
-    //         lng:126.8818645,
-    //     }
-    //     ,{
-    //         id:4,
-    //         lat:37.4805921,
-    //         lng:126.8815464,
-    //     }
-    // ]
+    const [thunders, setThunders]  = useState([]);
+    const [location, setLocation] = useState("모두보기");
 
-    // function view(id){
-    //     navigate('/user/thunder/' + id)
-    // }
-    const EventMarkerContainer = ({ position, content }) => {
+
+    useEffect(()=>{
+        getThunders()
+    },[])
+
+    useEffect(()=>{
+        console.log("location",location)
+        if(location == "none"){
+            getThunders()
+        }else{
+        axios.get("http://localhost:8080/thunder/select/"+ location)
+        .then((res)=>{
+            setThunders(res.data)
+        })
+    }
+
+    },[location])
+
+
+    const getThunders= async()=>{
+        try{
+          const temp = await axios.get("http://localhost:8080/thunder")
+          setThunders(temp.data) ;
+    
+        }catch(error){
+          console.log("번개 이미지 호출 에러: ",error);
+        }
+      }
+
+    const changeLocation = (e)=>{
+        setLocation(e.target.value)
+        console.log(e.target.value)
+        //  try{
+        //   const temp = axios.get("http://localhost:8080/thunder/"+location)
+        //   setThunders(temp.data) ;
+    
+        // }catch(error){
+        //   console.log("번개 이미지 호출 에러: ",error);
+        // }
+
+     }
+       
+      
+
+
+    const EventMarkerContainer = ({thunder}) => {
         const map = useMap()
         const [isVisible, setIsVisible] = useState(false)
+  
     
         return (
           <MapMarker
-            position={position} // 마커를 표시할 위치
-            // @ts-ignore
-            onClick={(marker) => map.panTo(marker.getPosition())}
+            position={{ lat:thunder.lat, lng:thunder.lng }} // 마커를 표시할 위치
+            onClick={(marker) => {
+                map.panTo(marker.getPosition())
+                
+            }}
             onMouseOver={() => setIsVisible(true)}
             onMouseOut={() => setIsVisible(false)}
           >
-            {isVisible && content.title}
+           
+                {isVisible && <div style={{width: "350px", height: "120px",display:"flex", padding:"10px"}}>
+                                <div>
+                                    <img src={thunder.image} alt="" width="80px" height="100px"/>
+                                </div>
+                                <div style={{}}>
+                                    <div>제목 : {thunder.title}</div>
+                                    <div>카테고리 : {thunder.category}</div>
+                                </div>
+                                    
+                              </div>}
           </MapMarker>
         )
       }
@@ -65,27 +103,40 @@ const ThunderMap = () => {
         <div className="container">
             <div className="board_container">
                 <div  className="board_container_title">모임 리스트</div>
-                {postList.map((post)=>(
+                {thunders.map((thunder)=>(
                     <>
-                     <BoardItem post={post}/>
+                     <ThunderBoardItem thunder={thunder} onMouseOver={()=>{}}/>
                     </>
                 ))}
             </div>
 
             <div className="map_container">
-            <Map className='map_item'
-                center={{ lat: 37.5505579, lng: 126.8874528 }}
-                level={5}>
-                {postList.map((pos)=>(
-                    <>
-                        <EventMarkerContainer
-                            key={`EventMarkerContainer-${pos.position.lat}-${pos.position.lng}`}
-                            position={pos.position}
-                            content={pos}
-                        />
-                    </>
-                ))}
+                <select name="location" onChange={changeLocation} value={location}>
+                    <option value="none">모두 보기</option>
+                    <option value="건대" >건대</option>
+                    <option value="남양주">남양주</option>
+                    <option value="장승배기" >장승배기</option>
+                    <option value="가산" >가산</option>
+                    <option value="부천">부천</option>
+                    <option value="한강" >한강</option>
+                </select>
+                <Map className='map_item'
+                    center={{ lat: 37.5973028, lng: 127.0291826 }}
+                    level={9}>
+                
+                    {thunders.map((thunder)=>(
+                        <>
+                        
+                            <EventMarkerContainer
+                                key={`EventMarkerContainer-${thunder.lat}-${thunder.lng}`}
+                                thunder={thunder}
+                            />
+                        </>
+                    ))}
 
+                </Map>
+            </div>
+        </div>
 
 
                 {/* {postList.map((pos)=>(
@@ -99,7 +150,7 @@ const ThunderMap = () => {
                     </MapMarker>
                     </>
                 ))} */}
-                  </Map>
+                
                 {/* <Map className='map_item'
                     center={{ lat: 33.5563, lng: 126.79581 }}
                     // style={{ width: "100%", height: "360px" }}
@@ -112,9 +163,7 @@ const ThunderMap = () => {
                     </MapMarker>
                 </Map> */}
                 
-            </div>
-        </div>
-
+      
 
             {/* <Map className='map_item'
                 center={{ lat: 33.5563, lng: 126.79581 }}

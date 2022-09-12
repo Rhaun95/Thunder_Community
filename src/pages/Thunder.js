@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import {useSelector, useDispatch} from 'react-redux';
 
 import Post from "./components/Post";
@@ -13,7 +14,25 @@ const Thunder = () => {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
+    //임시
     const postList = useSelector((state)=> state.basket.movieList);
+
+    const [thunders, setThunders]  = useState([]);
+
+    useEffect(()=>{
+        getThunders()
+    },[])
+
+    const getThunders= async()=>{
+        try{
+          const temp = await axios.get("http://localhost:8080/thunder")
+          setThunders(temp.data) ;
+    
+        }catch(error){
+          console.log("번개 이미지 호출 에러: ",error);
+        }
+      }
 
     function toMap(e){
         e.preventDefault();
@@ -23,6 +42,7 @@ const Thunder = () => {
     function toInsert(e){
         navigate("/user/thunderInsert");
     }
+
 
     
 
@@ -47,17 +67,10 @@ const Thunder = () => {
 
             <div className="post_container">
                 
-                {postList.map((post)=>(
+                {thunders.map((thunder)=>(
                 <>
                 <div className="post">
-                    <Post post={post}/>
-                    {/* <div className="post_back">
-                        <h3>{post.title}</h3>
-                        <p>장르 : {post.genre}</p>
-                        <p>상영시간 : {post.runtime}</p>
-                        <p>제한 : {post.limit}</p>
-                        <button>참여하기</button>
-                    </div>    */}
+                    <Post thunder={thunder}/>
                 </div>
                 </>
                 ))}

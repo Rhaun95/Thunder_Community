@@ -1,14 +1,37 @@
-* {
+ * {
     margin: 0;
     padding: 0;
-    text-align: justify;
+    /* text-align: justify; */
 }
 
-.board_wrap {
+ .thunderinsert {
     width: 1000px;
     margin: 100px auto;
 }
 
+.thunderinsert_main{
+    display: flex;
+}
+
+.thunderinsert_imagebox{
+    width: 400px;
+    height: 600px;
+    overflow: auto;
+}
+/* thunderinsert_images{
+    display:inline-block;
+    /* cursor:cursor; */ 
+
+.thunderinsert_image{
+    width: 150px;
+    height: 150px;
+    margin: 20px;
+    cursor: pointer;
+   
+}
+
+ 
+/*
 
 .board_title {
     margin-bottom: 30px;
@@ -61,7 +84,7 @@
 
 .board_write .info {
     border-top: 1px dashed #ddd;
-  /*  border-bottom: 1px solid #000;*/
+    border-bottom: 1px solid #000;
     font-size: 0;
 }
 
@@ -124,5 +147,6 @@
     border: 0;
     resize: vertical;
     background-color: ghostwhite;
-}
+} */
+
 

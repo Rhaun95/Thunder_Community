@@ -1,16 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/BoardItem.css';
+import '../css/ThunderBoardItem.css';
 
 
 const BoardItem=(props)=>{
-  const{id, title, genre, runtime, posterUrl}= props.post;
+  const{id, title, image}= props.thunder;
 
   const navigate= useNavigate();
 
   function view(e){
     e.preventDefault();
-    navigate('/user/thunder/'+ id);
+    navigate('/user/thunder/'+ id, {state: props.thunder});
   }
 
   return(
@@ -18,9 +18,13 @@ const BoardItem=(props)=>{
     
       <div className="boardItem">
         <div className="boardItem_content">
-          <div style={{margin:"0px"}}>제목: {title} </div> &nbsp; &nbsp; &nbsp; &nbsp;
-          {/* <div style={{margin:"0px"}}>내용 : {genre}</div> &nbsp;  */}
-          <div style={{margin:"0px"}}> id : {id}</div>
+          <div className='imgbox'>
+            <img src={image} width="50px" height="50px" alt=''/>
+          </div>
+          <div className="sub_content">
+            <div>제목: {title} </div> 
+            <div> id : {id}</div>
+          </div>
         </div>
           <button className="boardItem_btn" onClick={view}>게시글 보기</button>
       </div>
